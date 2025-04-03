@@ -4,9 +4,21 @@ export interface UserInterface {
   role: string;
 }
 
+export interface ArtistInterface{
+  id:number;
+  user: UserInterface;
+  name:string;
+  dob:string;
+  gender:string;
+  address:string;
+  firt_release_year:string;
+  no_of_albumns_released:string;
+  created_at:string;
+  updated_at:string;
+}
+
 export interface ProfileInterface {
-  email: string;
-  role: string;
+  user: UserInterface;
   first_name?: string | null;
   last_name?: string | null;
   phone?: number | null;

@@ -4,22 +4,21 @@ import { Button } from "@/components/ui/button";
 import {
   Card,
   CardContent,
-  CardDescription,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";
-import { login } from "@/shared/api/post/login-user";
+import { signupUser } from "./signup-user"; 
 
-interface LoginFormProps {
+interface SignUpFormProps {
   className?:string;
   [key:string]:any;
 }
-export function LoginForm({
+export function SignUpForm({
   signup,className,...props
-}: LoginFormProps) {
+}: SignUpFormProps) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [role,setRole] = useState("")
@@ -27,7 +26,7 @@ export function LoginForm({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError("");
-    const result = await login({email:email,password:password,role:role})
+    const result = await signupUser({email:email,password:password,role:role})
 
     console.log(result)
     if(result.success){
@@ -42,11 +41,8 @@ export function LoginForm({
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card>
         <CardHeader className="text-center">
-        {signup ? 
 
-          (<CardTitle className="text-xl">Create an Account</CardTitle>):(
-          <CardTitle className="text-xl">Welcome back</CardTitle>)
-        }
+          <CardTitle className="text-xl">Create an Account</CardTitle>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
@@ -63,7 +59,17 @@ export function LoginForm({
                     required
                   />
                 </div>
-
+                 <div className="grid gap-3">
+                  <Label htmlFor="role">Role</Label>
+                  <Input
+                    id="role"
+                    type="role"
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    placeholder="ARTIST"
+                    required
+                  />
+                </div>
                 <div className="grid gap-3">
                   <div className="flex items-center">
                     <Label htmlFor="password">Password</Label>
@@ -89,10 +95,17 @@ export function LoginForm({
                   />
                 </div>
                 <Button type="submit" className="w-full">
-                Login
+                {!signup ? 'Login':'Signup'}
                 </Button>
               </div>
-              
+              {!signup &&
+<div className="text-center text-sm">
+                Don&apos;t have an account?{" "}
+                <a href="#" className="underline underline-offset-4">
+                  Sign up
+                </a>
+              </div>
+              }
               </div>
           </form>
         </CardContent>
