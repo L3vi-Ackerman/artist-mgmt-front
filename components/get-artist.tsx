@@ -10,7 +10,6 @@ export const GetArtistComponent = () => {
   if (isLoading) return <p>Loading</p>;
   if (isError) return <p>Error found</p>;
 
-  console.log("Data found", data.results)
   if (data) return (
     <ArtistTable data={data.results} />
   );

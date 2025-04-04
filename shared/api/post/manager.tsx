@@ -1,14 +1,14 @@
+
 import { toast } from "react-toastify";
 import { UserData } from "./login-user"
 import Cookies from "js-cookie"; 
 interface ArtistData{
   id:number;
-  name:string;
+  first_name:string;
+  last_name:string;
   dob:string;
-  gender:string;
+  phone:number;
   address:string;
-  first_release_year:string;
-  no_of_albumns_released:number;
 }
 
 export async function updateArtist(artistData:ArtistData){

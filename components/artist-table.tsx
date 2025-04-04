@@ -3,51 +3,69 @@ import {
   TableBody,
   TableCaption,
   TableCell,
-  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
 import { ArtistInterface } from "@/types/interface";
+import ArtistForm from "./artist-form";
+import { Trash } from "lucide-react";
+import { deleteArtist } from "@/shared/api/post/artist";
+import { ToastContainer } from "react-toastify";
 interface ArtistTableProps {
   data: ArtistInterface[];
 }
 export function ArtistTable({ data }: ArtistTableProps) {
+  //console.log("data inside artist table => ", data[0].first_release_year)
   return (
     <Table>
-      <TableCaption>A list of your recent invoices.</TableCaption>
-      <TableHeader>
-        <TableRow>
-         <TableHead className="w-[100px]">ID</TableHead>
-          <TableHead>E-mail</TableHead>
-          <TableHead>Name</TableHead>
+    <TableCaption>A list of your recent invoices.</TableCaption>
+    <TableHeader>
+    <TableRow>
+    <TableHead className="w-[100px]">ID</TableHead>
+    <TableHead>E-mail</TableHead>
+    <TableHead>Name</TableHead>
 
-          <TableHead>No. of Albumns</TableHead>
-          <TableHead>DOB</TableHead>
-          <TableHead>Address</TableHead>
-        </TableRow>
-      </TableHeader>
-      <TableBody>
-        {data.map((item, index) => (
-          <TableRow key={index + 1}>
-            <TableCell className="font-medium">{index + 1}</TableCell>
-            <TableCell>{item.user.email}</TableCell>
-            <TableCell>{item.name}</TableCell>
-            <TableCell>
-            {item.no_of_albumns_released}
-            </TableCell>
-            <TableCell>{item.dob}</TableCell>
-            
-            <TableCell>{item.address}</TableCell>
-          </TableRow>
-        ))}
-      </TableBody>
-      {/* <TableFooter>
-        <TableRow>
-          <TableCell colSpan={3}>Total</TableCell>
-          <TableCell className="text-right">$2,500.00</TableCell>
-        </TableRow>
-      </TableFooter> */}
+    <TableHead>No. of Albumns</TableHead>
+    <TableHead>DOB</TableHead>
+    <TableHead>First Album Release Year</TableHead>
+    <TableHead>Address</TableHead>
+    </TableRow>
+    </TableHeader>
+    <TableBody>
+    {data?.map((item, index) => (
+
+      <TableRow key={index + 1}>
+      <TableCell className="font-medium">{index + 1}</TableCell>
+      <TableCell>{item.user.email}</TableCell>
+      <TableCell>{item.name}</TableCell>
+      <TableCell>
+      {item.no_of_albumns_released}
+      </TableCell>
+      <TableCell>{item.dob}</TableCell>
+
+      <TableCell>{item.first_release_year}</TableCell>
+      <TableCell>{item.address}</TableCell>
+      <TableCell className="flex gap-2 items-center">
+      
+      <ArtistForm
+      flag={false}
+      id={item.id}
+      email={item.user?.email || ''}
+      name={item.name}
+      gender={item.gender}
+      no_of_albumns_released={item.no_of_albumns_released}
+      first_release_year={item.first_release_year}
+      dob={item.dob}
+      address={item.address}
+      />
+      <Trash size={20} color="red" onClick={()=>deleteArtist(item.id)}/>
+      <ToastContainer />
+      </TableCell>
+      </TableRow>
+    ))}
+    </TableBody>
+
     </Table>
   );
 }
