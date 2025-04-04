@@ -2,17 +2,16 @@
 import React from "react";
 import { userQuery } from "@/shared/Query/userQuery";
 import { TableComponent } from "./manager-table";
+import { ArtistTable } from "./artist-table";
 
 export const GetArtistComponent = () => {
-  const { user, isLoading, isError } = userQuery("artist");
-  console.log(user);
+  const { data, isLoading, isError } = userQuery("artist");
+  console.log(data);
   if (isLoading) return <p>Loading</p>;
   if (isError) return <p>Error found</p>;
 
-  console.log("Data found", user.results)
-  if (user) return (
-    //<p>data found</p>
-        <TableComponent data={user.results}/>
-
+  console.log("Data found", data.results)
+  if (data) return (
+    <ArtistTable data={data.results} />
   );
 };

@@ -8,11 +8,12 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { ProfileInterface } from "@/types/interface";
+import { ArtistInterface} from "@/types/interface";
 interface TableProps {
-  data: ProfileInterface[];
+  data: ArtistInterface[];
 }
 export function TableComponent({ data }: TableProps) {
+  console.log(data)
   return (
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>
@@ -36,7 +37,7 @@ export function TableComponent({ data }: TableProps) {
             <TableCell>
               {item.first_name} {item.last_name}
             </TableCell>
-            <TableCell>{item.phone}</TableCell>
+            <TableCell>{item.no_of_albumns_released}</TableCell>
             <TableCell>{item.dob}</TableCell>
             <TableCell>{item.address}</TableCell>
           </TableRow>

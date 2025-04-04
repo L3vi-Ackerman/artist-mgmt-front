@@ -1,7 +1,9 @@
+'use client';
+import { LogOutIcon, User } from "lucide-react";
 import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { SidebarTrigger } from "@/components/ui/sidebar"
-
+import { ProfileDialog } from "./profile-dialog";
 export function SiteHeader() {
   return (
     <header className="flex h-(--header-height) shrink-0 items-center gap-2 border-b transition-[width,height] ease-linear group-has-data-[collapsible=icon]/sidebar-wrapper:h-(--header-height)">
@@ -13,16 +15,41 @@ export function SiteHeader() {
         />
         <h1 className="text-base font-medium">Documents</h1>
         <div className="ml-auto flex items-center gap-2">
-          <Button variant="ghost" asChild size="sm" className="hidden sm:flex">
+<Button variant="ghost"  className="hidden sm:flex" onClick={()=>{
+          }}>
             <a
-              href="https://github.com/shadcn-ui/ui/tree/main/apps/v4/app/(examples)/dashboard"
+              href="/login"
               rel="noopener noreferrer"
               target="_blank"
               className="dark:text-foreground"
             >
-              GitHub
+            <div className="flex gap-2 items-center ">
+             <User/> 
+             <div>
+            <ProfileDialog /> 
+             </div>
+            </div>
             </a>
           </Button>
+<Button variant="ghost"  className="hidden sm:flex" onClick={()=>{
+          }}>
+            <a
+              href="/login"
+              rel="noopener noreferrer"
+              target="_blank"
+              className="dark:text-foreground"
+            >
+            <div className="flex gap-2 items-center ">
+
+             <LogOutIcon/> 
+             <div>
+
+             Logout
+             </div>
+            </div>
+            </a>
+          </Button>
+          
         </div>
       </div>
     </header>

@@ -22,7 +22,7 @@ export function ArtistTable({ data }: ArtistTableProps) {
           <TableHead>E-mail</TableHead>
           <TableHead>Name</TableHead>
 
-          <TableHead>Phone</TableHead>
+          <TableHead>No. of Albumns</TableHead>
           <TableHead>DOB</TableHead>
           <TableHead>Address</TableHead>
         </TableRow>
@@ -32,13 +32,12 @@ export function ArtistTable({ data }: ArtistTableProps) {
           <TableRow key={index + 1}>
             <TableCell className="font-medium">{index + 1}</TableCell>
             <TableCell>{item.user.email}</TableCell>
-            <TableCell>{item.user.role}</TableCell>
+            <TableCell>{item.name}</TableCell>
             <TableCell>
-            {item.name}
+            {item.no_of_albumns_released}
             </TableCell>
-            <TableCell>{item.gender}</TableCell>
+            <TableCell>{item.dob}</TableCell>
             
-            <TableCell>{item.no_of_albumns_released}</TableCell>
             <TableCell>{item.address}</TableCell>
           </TableRow>
         ))}

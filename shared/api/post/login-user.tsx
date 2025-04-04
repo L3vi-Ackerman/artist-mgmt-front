@@ -39,5 +39,6 @@ export async function login({email,password,role}:UserData):Promise<LoginResult>
   } catch (error) {
    return {success:false,error:`Login failed: ${error}`} 
   }
-  return {success:false,error:"Unknown error"}
+  return {success:true,error:"Function returned"}
+
 }

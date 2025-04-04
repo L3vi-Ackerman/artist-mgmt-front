@@ -18,7 +18,7 @@ interface LoginFormProps {
   className?:string;
   [key:string]:any;
 }
-export function LoginForm({
+export function ProfileForm({
   signup,className,...props
 }: LoginFormProps) {
 

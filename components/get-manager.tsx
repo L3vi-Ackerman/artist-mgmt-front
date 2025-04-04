@@ -4,8 +4,8 @@ import { userQuery } from "@/shared/Query/userQuery";
 import { TableComponent } from "./manager-table";
 
 export const GetManagerComponent = () => {
-  const { user, isLoading, isError } = userQuery("profile");
-  console.log(user);
+  const { data:user, isLoading, isError } = userQuery("profile");
+  console.log(user.length);
   if (isLoading) return <p>Loading</p>;
   if (isError) return <p>Error found</p>;
 

@@ -2,8 +2,9 @@ export interface UserInterface {
   email: string;
   password: string;
   role: string;
+  is_active:boolean;
+  date_joined:string;
 }
-
 export interface ArtistInterface{
   id:number;
   user: UserInterface;
@@ -19,9 +20,9 @@ export interface ArtistInterface{
 
 export interface ProfileInterface {
   user: UserInterface;
-  first_name?: string | null;
-  last_name?: string | null;
-  phone?: number | null;
-  dob?: string | null;
-  address?: string | null;
+  first_name?: string ;
+  last_name?: string;
+  phone?: number;
+  dob?: string ;
+  address?: string;
 }
