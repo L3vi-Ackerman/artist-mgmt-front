@@ -2,14 +2,27 @@ export interface UserInterface {
   email: string;
   password: string;
   role: string;
+  is_active:boolean;
+  date_joined:string;
+}
+export interface ArtistInterface{
+  id:number;
+  user: UserInterface;
+  name:string;
+  dob:string;
+  gender:string;
+  address:string;
+  firt_release_year:string;
+  no_of_albumns_released:string;
+  created_at:string;
+  updated_at:string;
 }
 
 export interface ProfileInterface {
-  email: string;
-  role: string;
-  first_name?: string | null;
-  last_name?: string | null;
-  phone?: number | null;
-  dob?: string | null;
-  address?: string | null;
+  user: UserInterface;
+  first_name?: string ;
+  last_name?: string;
+  phone?: number;
+  dob?: string ;
+  address?: string;
 }

@@ -3,12 +3,12 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchUser } from "../api/fetch/fetchUser";
 export const userQuery = (endpoint: string) => {
   const {
-    data: user,
+    data,
     isLoading,
     isError,
   } = useQuery({
     queryKey: ["user"],
     queryFn: () => fetchUser(endpoint),
   });
-  return { user, isLoading, isError };
+  return { data, isLoading, isError };
 };
