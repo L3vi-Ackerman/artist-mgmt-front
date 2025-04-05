@@ -12,8 +12,8 @@ export interface ArtistInterface{
   dob:string;
   gender:string;
   address:string;
-  firt_release_year:string;
-  no_of_albumns_released:string;
+  first_release_year:string;
+  no_of_albumns_released:number;
   created_at:string;
   updated_at:string;
 }
@@ -26,3 +26,5 @@ export interface ProfileInterface {
   dob?: string ;
   address?: string;
 }
+
+//export interface ArtistForm

@@ -1,5 +1,6 @@
 "use client";
 import { cn } from "@/lib/utils";
+import Cookies from "js-cookie";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -44,7 +45,7 @@ export function LoginForm({
    }
   
  const handleLogin = () => {
-    const token = localStorage.getItem("accessToken");
+    const token =Cookies.get("accessToken");
     if (token) {
       router.push("/dashboard"); // Redirect if token exists
     } else {
