@@ -127,6 +127,7 @@ export default function ArtistForm({
 
       console.log(formattedValues);
       const result = await updateArtist(formattedValues) 
+      console.log(result)
 
     } catch (error) {
       console.error("Form submission error", error);

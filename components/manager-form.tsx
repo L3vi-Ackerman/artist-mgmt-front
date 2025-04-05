@@ -62,16 +62,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { updateArtist} from "@/shared/api/post/artist"
-
-const formSchema = z.object({
-  first_name: z.string().min(1).nullable().optional(), 
-  last_name: z.string().min(1).nullable().optional(), 
-  dob: z.coerce.date(),
-  phone: z.string().nullable().optional(),
-  address: z.string().min(1).nullable().optional(),
-});
-
+import { updateManager} from "@/shared/api/post/manager"
 interface PropsInterface{
   flag:boolean ;
   id:number;
@@ -83,6 +74,15 @@ interface PropsInterface{
   address:string | null|undefined;
 
 }
+const formSchema = z.object({
+  first_name: z.string().min(1).nullable().optional(), 
+  last_name: z.string().min(1).nullable().optional(), 
+  dob: z.coerce.date(),
+  phone: z.string().min(10).nullable().optional(),
+  address: z.string().min(1).nullable().optional(),
+});
+
+
 export function ManagerForm({
   flag,
   id,
@@ -119,7 +119,7 @@ export function ManagerForm({
       }
 
       console.log(formattedValues);
-      const result = await updateArtist(formattedValues) 
+      const result = await updateManager(formattedValues) 
 
     } catch (error) {
       console.error("Form submission error", error);
