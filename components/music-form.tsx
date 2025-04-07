@@ -45,46 +45,34 @@ import {
 import { updateArtist } from "@/shared/api/post/artist";
 
 const formSchema = z.object({
+  title: z.string().min(1).nullable().optional(), // Optional and can be null
   name: z.string().min(1).nullable().optional(), // Optional and can be null
-  dob: z.coerce.date(),
-  gender: z.string().nullable().optional(),
-  address: z.string().min(1).nullable().optional(),
-  first_release_year: z.string().nullable().optional(),
-  no_of_albumns_released: z.string().min(1).nullable().optional(),
+  album_name: z.string().nullable().optional(),
+  genre: z.string().min(1).nullable().optional(),
 });
 
 interface PropsInterface {
-  flag: boolean;
   id: number;
-  email: string | null | undefined;
   name: string | null | undefined;
-  gender: string | null | undefined;
-  no_of_albumns_released: number | null | undefined;
-  first_release_year: string | null | undefined;
-  dob: string | null | undefined;
-  address: string | null | undefined;
+  genre: string | null | undefined;
+  title: string | null | undefined;
+  album_name: string | null | undefined;
 }
-export default function ArtistForm({
-  flag,
+export  function MusicForm({
   id,
-  email,
   name,
-  gender,
-  no_of_albumns_released,
-  first_release_year,
-  dob,
-  address,
+  genre,
+  title,
+  album_name,
 }: PropsInterface) {
   {
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
         name: name,
-        dob: new Date(dob),
-        gender: gender,
-        address: address,
-        first_release_year: first_release_year,
-        no_of_albumns_released: no_of_albumns_released?.toString(),
+        title: title,
+        genre: genre,
+        album_name: album_name,
       },
     });
 
@@ -93,11 +81,9 @@ export default function ArtistForm({
         const formattedValues = {
           id: id,
           name: values.name,
-          dob: formatDate(values.dob, "yyyy-MM-dd"),
-          gender: values.gender,
-          address: values.address,
-          first_release_year: values.first_release_year,
-          no_of_albumns_released: parseInt(values?.no_of_albumns_released),
+          title: values.title,
+          genre: values.genre,
+          album_name: values.album_name,
         };
 
         console.log(formattedValues);
@@ -112,16 +98,14 @@ export default function ArtistForm({
     return (
       <Sheet>
         <SheetTrigger asChild>
-          <Button variant="outline" className="border-none">
-            {flag ? "Edit" : <Pen size={12} color="green" />}
+          <Button variant="outline" className="border-none text-right">
+             <Pen size={12} color="green" />
           </Button>
         </SheetTrigger>
         <SheetContent>
           <SheetHeader className="m-0 pb-0 ">
             <SheetTitle>Edit profile</SheetTitle>
-            {/*<SheetDescription>
-            Make changes to your profile here. Click save when you're done.
-          </SheetDescription> */}
+
           </SheetHeader>
           <Form {...form}>
             <form
@@ -146,56 +130,15 @@ export default function ArtistForm({
                   </FormItem>
                 )}
               />
-
               <FormField
                 control={form.control}
-                name="dob"
-                render={({ field }) => (
-                  <FormItem className="flex flex-col">
-                    <FormLabel>Date of birth (A.D)</FormLabel>
-                    <Popover>
-                      <PopoverTrigger asChild>
-                        <FormControl>
-                          <Button
-                            variant={"outline"}
-                            className={cn(
-                              "w-[240px] pl-3 text-left font-normal",
-                              !field.value && "text-muted-foreground"
-                            )}
-                          >
-                            {field.value ? (
-                              format(field.value, "PPP")
-                            ) : (
-                              <span>Pick a date</span>
-                            )}
-                            <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                          </Button>
-                        </FormControl>
-                      </PopoverTrigger>
-                      <PopoverContent className="w-auto p-0" align="start">
-                        <Calendar
-                          mode="single"
-                          selected={field.value}
-                          onSelect={field.onChange}
-                          initialFocus
-                        />
-                      </PopoverContent>
-                    </Popover>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-
-              <FormField
-                control={form.control}
-                name="gender"
+                name="genre"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel>Gender</FormLabel>
                     <Select
                       onValueChange={field.onChange}
-                      defaultValue={field.value || ""}
+                      defaultValue={field.value}
                     >
                       <FormControl>
                         <SelectTrigger>
@@ -203,8 +146,11 @@ export default function ArtistForm({
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="M">Male</SelectItem>
-                        <SelectItem value="F">Female</SelectItem>
+                        <SelectItem value="RNB">RNB</SelectItem>
+                        <SelectItem value="Country">Country</SelectItem>
+                        <SelectItem value="Classic">Classic</SelectItem>
+                        <SelectItem value="Rock">Rock</SelectItem>
+                        <SelectItem value="Jazz">Jazz</SelectItem>
                       </SelectContent>
                     </Select>
 
@@ -215,10 +161,10 @@ export default function ArtistForm({
 
               <FormField
                 control={form.control}
-                name="address"
+                name="title"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Address</FormLabel>
+                    <FormLabel>Title</FormLabel>
                     <FormControl>
                       <Input placeholder="Address" type="" {...field} />
                     </FormControl>
@@ -230,10 +176,10 @@ export default function ArtistForm({
 
               <FormField
                 control={form.control}
-                name="first_release_year"
+                name="album_name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>First Albumn Release Date</FormLabel>
+                    <FormLabel>Album Name</FormLabel>
                     <FormControl>
                       <Input
                         placeholder="Music Release Date"
@@ -247,25 +193,7 @@ export default function ArtistForm({
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="no_of_albumns_released"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>No. of Albumns Released</FormLabel>
-                    <FormControl>
-                      <Input
-                        placeholder="No. of Albumns Released"
-                        type=""
-                        {...field}
-                      />
-                    </FormControl>
-
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
-              <SheetFooter className="px-0">
+                           <SheetFooter className="px-0">
                 <SheetClose asChild>
                   <Button type="submit">Save changes</Button>
                 </SheetClose>

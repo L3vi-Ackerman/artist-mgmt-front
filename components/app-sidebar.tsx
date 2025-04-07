@@ -60,7 +60,7 @@ const data = {
 
     {
       title: "Music",
-      url: "#",
+      url: "/dashboard/music",
       icon: IconMusic,
     },
 
@@ -133,7 +133,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
             >
               <a href="#">
                 <IconInnerShadowTop className="!size-5" />
-                <span className="text-base font-semibold">Acme Inc.</span>
+                <span className="text-base font-semibold">Artist Mgmt System</span>
               </a>
             </SidebarMenuButton>
           </SidebarMenuItem>
