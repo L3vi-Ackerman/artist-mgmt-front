@@ -47,11 +47,11 @@ const data = {
       url: "/dashboard",
       icon: IconDashboard,
     },
-    {
-      title: "Manager",
-      url: "/dashboard/managers",
-      icon: IconUser,
-    },
+    //{
+    //  title: "Manager",
+    //  url: "/dashboard/managers",
+    //  icon: IconUser,
+    //},
     {
       title: "Artist",
       url: "/dashboard/artist",
@@ -64,11 +64,11 @@ const data = {
       icon: IconMusic,
     },
 
-    {
-      title: "Team",
-      url: "#",
-      icon: IconUsers,
-    },
+    //{
+    //  title: "Team",
+    //  url: "#",
+    //  icon: IconUsers,
+    //},
   ],
   navClouds: [
     {

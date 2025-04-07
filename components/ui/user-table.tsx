@@ -47,7 +47,6 @@ export function UserTableComponent() {
       <TableCell>{item.is_active ? "Active" : "Inactive"}</TableCell>
 
 
-      <TableCell>{item.date_joined.split('T')[0]}</TableCell>
       </TableRow>
     ))}
     </TableBody>
