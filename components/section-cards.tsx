@@ -15,8 +15,10 @@ import { userQuery } from "@/shared/Query/userQuery"
 export function SectionCards() {
 
   const {data:user,isLoading} = userQuery('user')
-  const {data:profile} = userQuery('profile')
-  console.log('length', profile)
+  const {data:artist} = userQuery('artist')
+  const {data:manager} = userQuery('profile')
+  const {data:music} = userQuery('music')
+  console.log('length', music)
   console.log('data: ', user?.length)
   if(isLoading){
     return <p>Loading</p>
@@ -29,7 +31,7 @@ export function SectionCards() {
     <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
     {user ?user.length : <p>Loading</p>}
     </CardTitle>
-    <CardAction>
+    <CardAction>.
     <Badge variant="outline">
     <IconTrendingUp />
     +12.5%
@@ -49,7 +51,7 @@ export function SectionCards() {
     <CardHeader>
     <CardDescription>No. of Artist</CardDescription>
     <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-    {profile? profile.count : <p>Loading</p>} 
+    {artist? artist.count : <p>Loading</p>} 
     </CardTitle>
     <CardAction>
     <Badge variant="outline">
@@ -71,7 +73,7 @@ export function SectionCards() {
     <CardHeader>
     <CardDescription>No. of Managers</CardDescription>
     <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-    45,678
+    {manager.length}
     </CardTitle>
     <CardAction>
     <Badge variant="outline">
@@ -91,7 +93,7 @@ export function SectionCards() {
     <CardHeader>
     <CardDescription>No. of Music</CardDescription>
     <CardTitle className="text-2xl font-semibold tabular-nums @[250px]/card:text-3xl">
-    4.5%
+    {music.length}
     </CardTitle>
     <CardAction>
     <Badge variant="outline">

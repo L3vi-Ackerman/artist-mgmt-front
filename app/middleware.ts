@@ -12,7 +12,7 @@ export default async function middleware(req: NextRequest) {
 
   if (isPublicRoute) return NextResponse.next();
 
-  const cookieStore = await cookies(); // Removed 'await'
+  const cookieStore = await cookies();
 
   if (isProtectedRoute) {
     let accessToken = cookieStore.get("accessToken")?.value; // Accessed directly
@@ -26,7 +26,7 @@ export default async function middleware(req: NextRequest) {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
-              "Authorization":`Bearer ${refreshToken}`
+              Authorization: `Bearer ${refreshToken}`,
             },
             //body: JSON.stringify({ refresh: refreshToken }),
           }
