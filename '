@@ -1,3 +1,4 @@
+
 "use client"
 import {
   useState
@@ -45,58 +46,60 @@ import {
 import {
   Calendar as CalendarIcon
 } from "lucide-react"
-import { Pen } from "lucide-react"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue
+} from "@/components/ui/select"
+import { Pen} from 'lucide-react'
 import {
 
   Sheet,
   SheetClose,
   SheetContent,
+  SheetDescription,
   SheetFooter,
   SheetHeader,
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet"
-import { updateManager} from "@/shared/api/post/manager"
+import { updateArtist} from "@/shared/api/post/artist"
+
+const formSchema = z.object({
+  title: z.string().min(1).nullable().optional(), // Optional and can be null
+  name: z.string().min(1).nullable().optional(), // Optional and can be null
+  album_name: z.string().nullable().optional(),
+  genre: z.string().min(1).nullable().optional(),
+});
+
 interface PropsInterface{
   flag:boolean ;
   id:number;
-  email:string | null |undefined;
-  first_name:string | null |undefined;
-  last_name:string | null |undefined;
-  phone:number| null|undefined;
-  dob:string | null|undefined;
-  address:string | null|undefined;
+  name:string | null |undefined;
+  title:string | null |undefined;
+  album_name:string | null|undefined;
 
 }
-const formSchema = z.object({
-  first_name: z.string().min(1).nullable().optional(), 
-  last_name: z.string().min(1).nullable().optional(), 
-  dob: z.coerce.date(),
-  phone: z.string().min(10).nullable().optional(),
-  address: z.string().min(1).nullable().optional(),
-});
-
-
-export function ManagerForm({
+export default function ArtistForm({
   flag,
   id,
-  email,
-  first_name,
-  last_name,
-  phone,      
-  dob,
-  address,
+  name,
+  title,
+  album_name,
 }: PropsInterface) { {
   
    
   const form = useForm < z.infer < typeof formSchema >> ({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      first_name:first_name ?? '', 
-      last_name:last_name ?? '',
+      name: name, 
       dob: new Date(dob),
-      phone: phone, 
+      gender: gender, 
       address: address, 
+      first_release_year: first_release_year, 
+      no_of_albumns_released: no_of_albumns_released?.toString(),
     },
   })
 
@@ -105,15 +108,17 @@ export function ManagerForm({
 
       const formattedValues = {
         id:id,
-        first_name: values.first_name,
-        last_name:values.last_name,
+        name: values.name,
         dob: formatDate(values.dob, "yyyy-MM-dd"),
-        phone: values.phone,
+        gender: values.gender,
         address: values.address,
+        first_release_year: values.first_release_year, 
+        no_of_albumns_released: parseInt(values?.no_of_albumns_released),
       }
 
       console.log(formattedValues);
-      const result = await updateManager(formattedValues) 
+      const result = await updateArtist(formattedValues) 
+      console.log(result)
 
     } catch (error) {
       console.error("Form submission error", error);
@@ -124,7 +129,7 @@ export function ManagerForm({
   return (
   <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline" className="border-none"> <Pen size={12} /> </Button>
+        <Button variant="outline" className="border-none">{flag? ('Edit'):(<Pen size={12} color="green"/> )}</Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader className="m-0 pb-0 ">
@@ -138,10 +143,10 @@ export function ManagerForm({
 
     <FormField
     control={form.control}
-    name="first_name"
+    name="name"
     render={({ field }) => (
       <FormItem>
-      <FormLabel>First Name</FormLabel>
+      <FormLabel>Name</FormLabel>
       <FormControl>
       <Input 
       placeholder="Enter your full name"
@@ -153,24 +158,7 @@ export function ManagerForm({
       </FormItem>
     )}
     />
-<FormField
-    control={form.control}
-    name="last_name"
-    render={({ field }) => (
-      <FormItem>
-      <FormLabel>Last Name</FormLabel>
-      <FormControl>
-      <Input 
-      placeholder="Enter your full name"
 
-      type="text"
-      {...field} />
-      </FormControl>
-      
-      <FormMessage />
-      </FormItem>
-    )}
-    />
     <FormField
     control={form.control}
     name="dob"
@@ -213,18 +201,22 @@ export function ManagerForm({
 
     <FormField
     control={form.control}
-    name="phone"
+    name="gender"
     render={({ field }) => (
       <FormItem>
-      <FormLabel>Phone</FormLabel>
+      <FormLabel>Gender</FormLabel>
+      <Select onValueChange={field.onChange} defaultValue={field.value}>
       <FormControl>
-      <Input 
-      placeholder="Phone Number"
-
-      type=""
-      {...field} />
+      <SelectTrigger>
+      <SelectValue placeholder="Select Gender" />
+      </SelectTrigger>
       </FormControl>
-      
+      <SelectContent>
+      <SelectItem value="M">Male</SelectItem>
+      <SelectItem value="F">Female</SelectItem>
+      </SelectContent>
+      </Select>
+
       <FormMessage />
       </FormItem>
     )}
@@ -248,7 +240,44 @@ export function ManagerForm({
       </FormItem>
     )}
     />
-   
+
+    <FormField
+    control={form.control}
+    name="first_release_year"
+    render={({ field }) => (
+      <FormItem>
+      <FormLabel>First Albumn Release Date</FormLabel>
+      <FormControl>
+      <Input 
+      placeholder="Music Release Date"
+
+      type=""
+      {...field} />
+      </FormControl>
+     
+      <FormMessage />
+      </FormItem>
+    )}
+    />
+
+    <FormField
+    control={form.control}
+    name="no_of_albumns_released"
+    render={({ field }) => (
+      <FormItem>
+      <FormLabel>No. of Albumns Released</FormLabel>
+      <FormControl>
+      <Input 
+      placeholder="No. of Albumns Released"
+
+      type=""
+      {...field} />
+      </FormControl>
+     
+      <FormMessage />
+      </FormItem>
+    )}
+    />
     <SheetFooter className="px-0">
           <SheetClose asChild>
             <Button type="submit">Save changes</Button>
