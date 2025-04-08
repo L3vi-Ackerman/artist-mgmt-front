@@ -1,5 +1,4 @@
 "use client";
-import { toast } from "sonner";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
@@ -31,7 +30,7 @@ import {
   SheetTrigger,
 } from "@/components/ui/sheet";
 import { updateMusic } from "@/shared/api/post/music";
-
+import { ToastContainer, toast } from "react-toastify";
 const formSchema = z.object({
   title: z.string().min(1),
   name: z.string().min(1), 
@@ -75,7 +74,11 @@ export  function MusicForm({
 
         console.log(formattedValues);
         const result = await updateMusic(formattedValues);
-        console.log(result);
+        if(result.success ) {
+          toast.success("Updated Successful!")
+        }
+        else{ toast.error("Unauthorized to Update!")}
+        console.log(result.message);
       } catch (error) {
         console.error("Form submission error", error);
         toast.error("Failed to submit the form. Please try again.");
@@ -146,7 +149,7 @@ export  function MusicForm({
         >
         <FormControl>
         <SelectTrigger>
-        <SelectValue placeholder="Select Gender" />
+        <SelectValue placeholder="Select Genre" />
         </SelectTrigger>
         </FormControl>
         <SelectContent>
@@ -190,7 +193,9 @@ export  function MusicForm({
       </form>
       </Form>
       </SheetContent>
+      <ToastContainer />
       </Sheet>
+
     );
   }
 }

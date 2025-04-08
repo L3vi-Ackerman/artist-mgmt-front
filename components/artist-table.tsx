@@ -16,7 +16,6 @@ interface ArtistTableProps {
   data: ArtistInterface[];
 }
 export function ArtistTable({ data }: ArtistTableProps) {
-  //console.log("data inside artist table => ", data[0].first_release_year)
   return (
     <Table>
     <TableCaption>A list of your recent invoices.</TableCaption>
@@ -45,9 +44,10 @@ export function ArtistTable({ data }: ArtistTableProps) {
       <TableCell>{item.dob}</TableCell>
 
       <TableCell>{item.first_release_year}</TableCell>
-      <TableCell>{item.address}</TableCell>
-      <TableCell className="flex gap-2 items-center">
-      
+      <TableCell>
+
+      {item.address}
+
       <ArtistForm
       flag={false}
       id={item.id}
@@ -61,7 +61,10 @@ export function ArtistTable({ data }: ArtistTableProps) {
       />
       <Trash size={20} color="black" onClick={()=>deleteArtist(item.id)}/>
       <ToastContainer />
+
+
       </TableCell>
+
       </TableRow>
     ))}
     </TableBody>

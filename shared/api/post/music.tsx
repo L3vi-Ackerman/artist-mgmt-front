@@ -25,10 +25,11 @@ export async function updateMusic(musicData:MusicData){
     })
     if(!response.ok){
       const errorData = await response.json()
-      throw new Error(JSON.stringify(errorData))
+      return {success:false, message:errorData}
+      
     }
     const createdMusic= await response.json()
-    return createdMusic 
+    return {success:true, message:createdMusic} 
   }catch(error){
     console.log('Error creating artist', error)
     throw error;
