@@ -145,7 +145,7 @@ export  function MusicForm({
         <FormLabel>Genre</FormLabel>
         <Select
         onValueChange={field.onChange}
-        defaultValue={field.value ?? ''}
+        defaultValue={field.value}
         >
         <FormControl>
         <SelectTrigger>

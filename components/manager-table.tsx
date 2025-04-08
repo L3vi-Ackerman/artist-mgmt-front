@@ -7,10 +7,15 @@ import {
   TableHead,
   TableHeader,
   TableRow,
+
 } from "@/components/ui/table";
-import { ArtistInterface} from "@/types/interface";
+
+import { Trash } from "lucide-react";
+import { ToastContainer } from "react-toastify";
+import { ArtistInterface, ProfileInterface} from "@/types/interface";
+import { ManagerForm } from "./manager-form";
 interface TableProps {
-  data: ArtistInterface[];
+  data:ProfileInterface[];
 }
 export function TableComponent({ data }: TableProps) {
   console.log(data)
@@ -37,9 +42,33 @@ export function TableComponent({ data }: TableProps) {
             <TableCell>
               {item.first_name} {item.last_name}
             </TableCell>
-            <TableCell>{item.no_of_albumns_released}</TableCell>
+            <TableCell>{item.phone}</TableCell>
             <TableCell>{item.dob}</TableCell>
-            <TableCell>{item.address}</TableCell>
+              <TableCell>
+      <div className="flex items-center justify-between">
+
+      {item.address}
+
+      <div className="flex gap-2 items-center pr-4">
+    <ManagerForm 
+      flag= {false}
+      id ={item.id}
+      email={item.user.email}
+      first_name={item.first_name}
+      last_name ={item.last_name}
+      phone = {item.phone ?? 0}
+      dob = {item.dob}
+      address = {item.address}
+
+      />
+      <Trash size={20} color="black" onClick={()=>deleteArtist(item.id)}/>
+      <ToastContainer />
+
+      </div>
+
+      </div>
+
+      </TableCell>
           </TableRow>
         ))}
       </TableBody>

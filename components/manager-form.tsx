@@ -45,13 +45,7 @@ import {
 import {
   Calendar as CalendarIcon
 } from "lucide-react"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue
-} from "@/components/ui/select"
+import { Pen } from "lucide-react"
 import {
 
   Sheet,
@@ -69,7 +63,7 @@ interface PropsInterface{
   email:string | null |undefined;
   first_name:string | null |undefined;
   last_name:string | null |undefined;
-  phone:string | null|undefined;
+  phone:number| null|undefined;
   dob:string | null|undefined;
   address:string | null|undefined;
 
@@ -89,7 +83,7 @@ export function ManagerForm({
   email,
   first_name,
   last_name,
-  phone,
+  phone,      
   dob,
   address,
 }: PropsInterface) { {
@@ -98,8 +92,8 @@ export function ManagerForm({
   const form = useForm < z.infer < typeof formSchema >> ({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      first_name:first_name, 
-      last_name:last_name,
+      first_name:first_name ?? '', 
+      last_name:last_name ?? '',
       dob: new Date(dob),
       phone: phone, 
       address: address, 
@@ -130,7 +124,7 @@ export function ManagerForm({
   return (
   <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline" className="border-none">Edit</Button>
+        <Button variant="outline" className="border-none"> <Pen size={12} /> </Button>
       </SheetTrigger>
       <SheetContent>
         <SheetHeader className="m-0 pb-0 ">
@@ -168,6 +162,7 @@ export function ManagerForm({
       <FormControl>
       <Input 
       placeholder="Enter your full name"
+
       type="text"
       {...field} />
       </FormControl>

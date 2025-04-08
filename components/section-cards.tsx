@@ -16,7 +16,7 @@ export function SectionCards() {
 
   const {data:user,isLoading} = userQuery('user')
   const {data:profile} = userQuery('profile')
-
+  console.log('length', profile)
   console.log('data: ', user?.length)
   if(isLoading){
     return <p>Loading</p>

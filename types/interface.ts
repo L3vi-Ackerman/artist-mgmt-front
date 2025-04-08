@@ -20,6 +20,7 @@ export interface ArtistInterface{
 
 export interface ProfileInterface {
   user: UserInterface;
+  id:number;
   first_name?: string ;
   last_name?: string;
   phone?: number;

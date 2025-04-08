@@ -22,7 +22,9 @@ const genreMap: { [key: string]: string } = {
 };
 
 const getGenreDisplay = (genreCode: string): string | undefined => {
+  console.log("kalsjdf:---->", genreMap[genreCode])
   return genreMap[genreCode];
+
 };
 export function MusicTable() {
   const {data, isLoading, isError} = musicQuery()
@@ -60,22 +62,14 @@ export function MusicTable() {
           <MusicForm          id={item.id}
           name={item.artist.name || ''}
           title={item.title}
-          genre={getGenreDisplay(item.genre) ||""}
+          genre={item.genre}
           album_name={item.album_name}
           />
           <Trash size={18} color="black" onClick={()=>deleteArtist(item.id)}/>
           </div>
-
           </div>
-
           </TableCell>
 
-
-          {/* <TableCell>
-
-              </TableCell> */}
-
-          <ToastContainer />
           </TableRow>
 
         ))}
