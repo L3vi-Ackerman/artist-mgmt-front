@@ -49,8 +49,9 @@ const formSchema = z.object({
   dob: z.coerce.date(),
   gender: z.string().nullable().optional(),
   address: z.string().min(1).nullable().optional(),
+
+  no_of_albumns_released: z.string().min(10).nullable().optional(),
   first_release_year: z.string().nullable().optional(),
-  no_of_albumns_released: z.string().min(1).nullable().optional(),
 });
 
 interface PropsInterface {
@@ -79,12 +80,12 @@ export default function ArtistForm({
     const form = useForm<z.infer<typeof formSchema>>({
       resolver: zodResolver(formSchema),
       defaultValues: {
-        name: name,
+        name: name ??'',
         dob: new Date(dob),
         gender: gender,
         address: address,
         first_release_year: first_release_year,
-        no_of_albumns_released: no_of_albumns_released?.toString(),
+        no_of_albumns_released: no_of_albumns_released != null ? parseInt(no_of_albumns_released.toString()) : 0,
       },
     });
 
@@ -97,7 +98,9 @@ export default function ArtistForm({
           gender: values.gender,
           address: values.address,
           first_release_year: values.first_release_year,
-          no_of_albumns_released: parseInt(values?.no_of_albumns_released),
+          //no_of_albumns_released: parseInt(values?.no_of_albumns_released) ?? 0,
+          no_of_albumns_released : values.no_of_albumns_released
+            
         };
 
         console.log(formattedValues);
@@ -113,7 +116,7 @@ export default function ArtistForm({
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline" className="border-none">
-            {flag ? "Edit" : <Pen size={12} color="green" />}
+            {flag ? "Edit" : <Pen size={12}  />}
           </Button>
         </SheetTrigger>
         <SheetContent>

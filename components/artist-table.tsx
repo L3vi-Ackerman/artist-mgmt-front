@@ -59,7 +59,7 @@ export function ArtistTable({ data }: ArtistTableProps) {
       dob={item.dob}
       address={item.address}
       />
-      <Trash size={20} color="red" onClick={()=>deleteArtist(item.id)}/>
+      <Trash size={20} color="black" onClick={()=>deleteArtist(item.id)}/>
       <ToastContainer />
       </TableCell>
       </TableRow>

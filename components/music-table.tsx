@@ -51,7 +51,7 @@ export function MusicTable() {
           genre={item.genre}
           album_name={item.album_name}
           />
-          <Trash size={20} color="red" onClick={()=>deleteArtist(item.id)}/>
+          <Trash size={18} color="black" onClick={()=>deleteArtist(item.id)}/>
           <ToastContainer />
 
           </TableCell>

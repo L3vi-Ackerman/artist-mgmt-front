@@ -35,7 +35,7 @@ export function UserTableComponent() {
     {/*{isLoading && <h1> Loading </h1>} */}
     <TableBody>
 
-    {data.map((item, index) => (
+    {data.map((item, index:number) => (
       <TableRow key={index + 1}>
       <TableCell className="font-medium">{index + 1}</TableCell>
       <TableCell>{item.email}</TableCell>
