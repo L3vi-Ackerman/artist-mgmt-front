@@ -7,7 +7,7 @@ export const userQuery = (endpoint: string) => {
     isLoading,
     isError,
   } = useQuery({
-    queryKey: ["user"],
+    queryKey: [`${endpoint}`],
     queryFn: () => fetchUser(endpoint),
   });
   return { data, isLoading, isError };
