@@ -1,3 +1,4 @@
+'use client'
 import {
   Table,
   TableBody,
@@ -13,13 +14,19 @@ import {
 import { Trash } from "lucide-react";
 import { ToastContainer } from "react-toastify";
 import { ArtistInterface, ProfileInterface} from "@/types/interface";
+import { userQuery } from "@/shared/Query/userQuery";
 import { ManagerForm } from "./manager-form";
 interface TableProps {
   data:ProfileInterface[];
 }
-export function TableComponent({ data }: TableProps) {
-  console.log(data)
-  return (
+export function ManagerTable() {
+  
+  const { data:user, isLoading, isError } = userQuery("profile");
+  console.log(user)
+  if(isLoading) return <p>Loading</p>
+  if(isError) return <p>Error</p>
+  if(user){
+    return (
     <Table>
       <TableCaption>A list of your recent invoices.</TableCaption>
       <TableHeader>
@@ -34,7 +41,7 @@ export function TableComponent({ data }: TableProps) {
         </TableRow>
       </TableHeader>
       <TableBody>
-        {data.map((item, index) => (
+        {user.map((item, index) => (
           <TableRow key={index + 1}>
             <TableCell className="font-medium">{index + 1}</TableCell>
             <TableCell>{item.user.email}</TableCell>
@@ -80,4 +87,6 @@ export function TableComponent({ data }: TableProps) {
       </TableFooter> */}
     </Table>
   );
+  }
+  
 }
